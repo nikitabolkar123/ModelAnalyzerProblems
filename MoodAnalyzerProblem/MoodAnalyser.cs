@@ -5,21 +5,24 @@ using System.Text;
 namespace MoodAnalyzerProblem
 {
     public class MoodAnalyser
+    {
+        public string message;
+        public MoodAnalyser()
         {
-            public string message;
-            /// <summary>
-            /// Initializes a new instances of the <see cref="= "MoodAnalyser"/>class.
-            /// </summary>
-            public MoodAnalyser()
+        }
+        public MoodAnalyser(string message)
+        {
+            this.message = message;
+        }
+        public string AnalyseMood()
+        {
+            try
             {
-            }
-            public MoodAnalyser(string message)
-            {
-                this.message = message;
-            }
-            public string AnalyseMood(string message)
-            {
-                if (message.ToUpper().Contains("SAD"))
+                if (string.IsNullOrEmpty(message))
+                {
+                    throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.EMPTY_MOOD, "Message is Empty");
+                }
+                if (message.Contains("Sad"))
                 {
                     return "SAD";
                 }
@@ -28,5 +31,10 @@ namespace MoodAnalyzerProblem
                     return "HAPPY";
                 }
             }
+            catch (MoodAnalyserException)
+            {
+                throw new MoodAnalyserException(MoodAnalyserException.ExceptionType.NULL_MOOD, "Message is ull");
+            }
         }
+    }
     }
